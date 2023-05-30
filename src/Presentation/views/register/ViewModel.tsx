@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { RegisterAuthUseCase } from '../../../Domain/useCases/auth/RegisterAuth'
+import { User } from '../../../Domain/entities/User'
 
 const RegisterViewModel = () => {
   const [values, setValues] = useState({
@@ -10,8 +12,10 @@ const RegisterViewModel = () => {
     phone: ''
   })
 
-  const register = () => {
-    console.log(JSON.stringify(values))
+  const register = async () => {
+    const { result, error } = await RegisterAuthUseCase(values)
+    console.log('Result ', JSON.stringify(result))
+    console.log('Error ', JSON.stringify(error))
   }
 
   const onChange = (property: string, value: any) => {
